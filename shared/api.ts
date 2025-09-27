@@ -1,12 +1,30 @@
 /**
- * Shared code between client and server
- * Useful to share types between client and server
- * and/or small pure JS functions that can be used on both client and server
+ * Shared types for Employee Management
  */
 
-/**
- * Example response type for /api/demo
- */
 export interface DemoResponse {
   message: string;
+}
+
+export type EmployeeBase = {
+  name: string;
+  email: string;
+  role: string;
+  department: string;
+  salary: number;
+  dateOfJoining: string; // ISO date string
+};
+
+export type Employee = EmployeeBase & { id: string };
+
+export interface ListEmployeesResponse {
+  data: Employee[];
+}
+
+export interface EmployeeResponse {
+  data: Employee;
+}
+
+export interface ApiError {
+  error: string;
 }

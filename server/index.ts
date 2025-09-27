@@ -2,6 +2,13 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
+import {
+  listEmployees,
+  getEmployee,
+  createEmployee,
+  updateEmployee,
+  deleteEmployee,
+} from "./routes/employees";
 
 export function createServer() {
   const app = express();
@@ -18,6 +25,13 @@ export function createServer() {
   });
 
   app.get("/api/demo", handleDemo);
+
+  // Employees CRUD API
+  app.get("/api/employees", listEmployees);
+  app.get("/api/employees/:id", getEmployee);
+  app.post("/api/employees", createEmployee);
+  app.put("/api/employees/:id", updateEmployee);
+  app.delete("/api/employees/:id", deleteEmployee);
 
   return app;
 }
