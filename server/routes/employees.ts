@@ -58,7 +58,9 @@ export const getEmployee: RequestHandler = (req, res) => {
 export const createEmployee: RequestHandler = (req, res) => {
   const parse = employeeSchema.safeParse(req.body as EmployeeBase);
   if (!parse.success) {
-    return res.status(400).json({ error: parse.error.flatten().formErrors.join(", ") });
+    return res
+      .status(400)
+      .json({ error: parse.error.flatten().formErrors.join(", ") });
   }
   const emp: Employee = { id: randomUUID(), ...parse.data };
   employees.unshift(emp);
@@ -68,11 +70,14 @@ export const createEmployee: RequestHandler = (req, res) => {
 export const updateEmployee: RequestHandler = (req, res) => {
   const { id } = req.params;
   const index = employees.findIndex((e) => e.id === id);
-  if (index === -1) return res.status(404).json({ error: "Employee not found" });
+  if (index === -1)
+    return res.status(404).json({ error: "Employee not found" });
 
   const parse = employeeSchema.safeParse(req.body as EmployeeBase);
   if (!parse.success) {
-    return res.status(400).json({ error: parse.error.flatten().formErrors.join(", ") });
+    return res
+      .status(400)
+      .json({ error: parse.error.flatten().formErrors.join(", ") });
   }
 
   employees[index] = { id, ...parse.data };
@@ -82,7 +87,8 @@ export const updateEmployee: RequestHandler = (req, res) => {
 export const deleteEmployee: RequestHandler = (req, res) => {
   const { id } = req.params;
   const index = employees.findIndex((e) => e.id === id);
-  if (index === -1) return res.status(404).json({ error: "Employee not found" });
+  if (index === -1)
+    return res.status(404).json({ error: "Employee not found" });
   const [removed] = employees.splice(index, 1);
   res.json({ data: removed });
 };

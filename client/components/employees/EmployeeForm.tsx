@@ -17,7 +17,11 @@ const schema = z.object({
 
 export type EmployeeFormValues = z.infer<typeof schema>;
 
-export default function EmployeeForm({ initial, onSubmit, submitting }: {
+export default function EmployeeForm({
+  initial,
+  onSubmit,
+  submitting,
+}: {
   initial?: Partial<EmployeeBase>;
   onSubmit: (values: EmployeeFormValues) => void | Promise<void>;
   submitting?: boolean;
@@ -30,7 +34,9 @@ export default function EmployeeForm({ initial, onSubmit, submitting }: {
       role: initial?.role ?? "",
       department: initial?.department ?? "",
       salary: (initial?.salary as number | undefined) ?? 0,
-      dateOfJoining: initial?.dateOfJoining?.slice(0, 10) ?? new Date().toISOString().slice(0, 10),
+      dateOfJoining:
+        initial?.dateOfJoining?.slice(0, 10) ??
+        new Date().toISOString().slice(0, 10),
     },
   });
 
@@ -45,42 +51,63 @@ export default function EmployeeForm({ initial, onSubmit, submitting }: {
           <Label htmlFor="name">Name</Label>
           <Input id="name" {...form.register("name")} />
           {form.formState.errors.name && (
-            <p className="text-destructive text-sm mt-1">{form.formState.errors.name.message}</p>
+            <p className="text-destructive text-sm mt-1">
+              {form.formState.errors.name.message}
+            </p>
           )}
         </div>
         <div>
           <Label htmlFor="email">Email</Label>
           <Input id="email" type="email" {...form.register("email")} />
           {form.formState.errors.email && (
-            <p className="text-destructive text-sm mt-1">{form.formState.errors.email.message}</p>
+            <p className="text-destructive text-sm mt-1">
+              {form.formState.errors.email.message}
+            </p>
           )}
         </div>
         <div>
           <Label htmlFor="role">Role</Label>
           <Input id="role" {...form.register("role")} />
           {form.formState.errors.role && (
-            <p className="text-destructive text-sm mt-1">{form.formState.errors.role.message}</p>
+            <p className="text-destructive text-sm mt-1">
+              {form.formState.errors.role.message}
+            </p>
           )}
         </div>
         <div>
           <Label htmlFor="department">Department</Label>
           <Input id="department" {...form.register("department")} />
           {form.formState.errors.department && (
-            <p className="text-destructive text-sm mt-1">{form.formState.errors.department.message}</p>
+            <p className="text-destructive text-sm mt-1">
+              {form.formState.errors.department.message}
+            </p>
           )}
         </div>
         <div>
           <Label htmlFor="salary">Salary (USD)</Label>
-          <Input id="salary" type="number" step="0.01" {...form.register("salary", { valueAsNumber: true })} />
+          <Input
+            id="salary"
+            type="number"
+            step="0.01"
+            {...form.register("salary", { valueAsNumber: true })}
+          />
           {form.formState.errors.salary && (
-            <p className="text-destructive text-sm mt-1">{form.formState.errors.salary.message}</p>
+            <p className="text-destructive text-sm mt-1">
+              {form.formState.errors.salary.message}
+            </p>
           )}
         </div>
         <div>
           <Label htmlFor="dateOfJoining">Date of Joining</Label>
-          <Input id="dateOfJoining" type="date" {...form.register("dateOfJoining")} />
+          <Input
+            id="dateOfJoining"
+            type="date"
+            {...form.register("dateOfJoining")}
+          />
           {form.formState.errors.dateOfJoining && (
-            <p className="text-destructive text-sm mt-1">{form.formState.errors.dateOfJoining.message}</p>
+            <p className="text-destructive text-sm mt-1">
+              {form.formState.errors.dateOfJoining.message}
+            </p>
           )}
         </div>
       </div>

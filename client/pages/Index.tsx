@@ -1,9 +1,17 @@
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import EmployeeTable from "@/components/employees/EmployeeTable";
-import EmployeeForm, { EmployeeFormValues } from "@/components/employees/EmployeeForm";
+import EmployeeForm, {
+  EmployeeFormValues,
+} from "@/components/employees/EmployeeForm";
 import { useEmployees } from "@/hooks/use-employees";
 import { Employee } from "@shared/api";
 import { toast } from "sonner";
@@ -19,7 +27,9 @@ export default function Index() {
     const q = search.trim().toLowerCase();
     if (!q) return employees;
     return employees.filter((e) =>
-      [e.name, e.email, e.role, e.department].some((v) => v.toLowerCase().includes(q)),
+      [e.name, e.email, e.role, e.department].some((v) =>
+        v.toLowerCase().includes(q),
+      ),
     );
   }, [search, employees]);
 
@@ -36,7 +46,10 @@ export default function Index() {
   const onUpdate = async (values: EmployeeFormValues) => {
     if (!editEmp) return;
     try {
-      await update.mutateAsync({ id: editEmp.id, payload: { ...values, salary: Number(values.salary) } });
+      await update.mutateAsync({
+        id: editEmp.id,
+        payload: { ...values, salary: Number(values.salary) },
+      });
       toast.success("Employee updated");
       setEditEmp(null);
       setOpen(false);
@@ -58,8 +71,12 @@ export default function Index() {
     <div className="space-y-6">
       <section className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight">Employee Management</h1>
-          <p className="text-muted-foreground">Create, read, update, and delete employee records.</p>
+          <h1 className="text-3xl font-extrabold tracking-tight">
+            Employee Management
+          </h1>
+          <p className="text-muted-foreground">
+            Create, read, update, and delete employee records.
+          </p>
         </div>
         <div className="flex gap-3 w-full md:w-auto">
           <Input
@@ -74,7 +91,9 @@ export default function Index() {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[700px]">
               <DialogHeader>
-                <DialogTitle>{editEmp ? "Edit Employee" : "Add Employee"}</DialogTitle>
+                <DialogTitle>
+                  {editEmp ? "Edit Employee" : "Add Employee"}
+                </DialogTitle>
               </DialogHeader>
               <EmployeeForm
                 initial={editEmp ?? undefined}
@@ -87,9 +106,13 @@ export default function Index() {
       </section>
 
       {query.isLoading ? (
-        <div className="h-48 grid place-items-center text-muted-foreground">Loading employees...</div>
+        <div className="h-48 grid place-items-center text-muted-foreground">
+          Loading employees...
+        </div>
       ) : query.isError ? (
-        <div className="h-48 grid place-items-center text-destructive">Failed to load employees</div>
+        <div className="h-48 grid place-items-center text-destructive">
+          Failed to load employees
+        </div>
       ) : (
         <EmployeeTable
           employees={filtered}

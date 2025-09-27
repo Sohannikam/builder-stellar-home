@@ -1,5 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createEmployeeApi, deleteEmployeeApi, fetchEmployees, updateEmployeeApi } from "@/lib/api/employees";
+import {
+  createEmployeeApi,
+  deleteEmployeeApi,
+  fetchEmployees,
+  updateEmployeeApi,
+} from "@/lib/api/employees";
 import { Employee, EmployeeBase } from "@shared/api";
 
 export function useEmployees() {
@@ -12,7 +17,8 @@ export function useEmployees() {
   });
 
   const update = useMutation({
-    mutationFn: ({ id, payload }: { id: string; payload: EmployeeBase }) => updateEmployeeApi(id, payload),
+    mutationFn: ({ id, payload }: { id: string; payload: EmployeeBase }) =>
+      updateEmployeeApi(id, payload),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["employees"] }),
   });
 
